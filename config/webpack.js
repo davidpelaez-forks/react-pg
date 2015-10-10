@@ -6,14 +6,28 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: 'bundle.js'
   },
+  devtool: 'eval',
 
   module: {
     loaders: [
       {
         test: /src\/.+.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel-loader'
+      },
+      //{ 
+      //  test: require.resolve("react"), 
+      //  loader: "expose?React" 
+      //},
+      { 
+        test: require.resolve("../src/app/store"), 
+        loaders: ["expose?store","babel-loader" ]
       }
+      // ,
+      // { 
+      //   test: require.resolve("../src/app/data/store"), 
+      //   loaders: ["expose?store","babel-loader" ]
+      // }
     ]
   }
 };

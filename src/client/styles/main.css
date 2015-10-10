@@ -4,6 +4,18 @@
   padding: 10px;
 }
 
+.transactions-list{
+  border: solid thin red;
+  width: 45%;
+  float:left;
+}
+
+.accounts-list{
+  border: solid thin green;
+  width: 50%;
+  float: left;
+}
+
 .cart {
   border: 2px solid red;
   padding: 10px;
@@ -16,6 +28,10 @@
 ul {
   list-style: none;
   padding: 0;
+}
+
+.toolbar{
+  clear: both;
 }
 
 li {

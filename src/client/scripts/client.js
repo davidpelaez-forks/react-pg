@@ -1,35 +1,16 @@
 import Debug from 'debug';
-import App from '../../app';
+import React from 'react';
+//import ReactDOM from 'react-dom';
+//import App from '../../app/app';
+//ReactDOM.render(<App/>,attachElement);
 
-var attachElement = document.getElementById('app');
+Debug.enable('*');
 
-var state = {
-  cart: {
-    title: 'My Cart',
-    items: [
-      {
-        title: 'Item 1',
-        price: 12
-      },
-      {
-        title: 'Item 2',
-        price: 21
-      },
-      {
-        title: 'Item 3',
-        price: 33
-      }
-    ]
-  }
-};
+let attachElement = document.getElementById('app');
 
-var app;
-
-Debug.enable('myApp*');
-
-// Create new app and attach to element
-app = new App({
-  state: state
-});
-
-app.renderToDOM(attachElement);
+import AppRoot from '../../app/app-root';
+import { Provider } from 'react-redux';
+import store from '../../app/store';
+// Why does using react dom generate invarian ref error?
+// https://gist.github.com/jimfb/4faa6cbfb1ef476bd105
+React.render(<Provider store={store}><AppRoot/></Provider>,attachElement);

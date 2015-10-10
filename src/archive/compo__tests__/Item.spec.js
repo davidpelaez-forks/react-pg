@@ -1,6 +1,6 @@
 jest.dontMock('../Item');
 
-import React from 'react/addons';
+import React from 'react';
 import Item from '../Item';
 
 var TestUtils = React.addons.TestUtils;

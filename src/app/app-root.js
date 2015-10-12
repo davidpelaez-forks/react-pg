@@ -4,10 +4,11 @@ import AccountsList from './components/account-list';
 import TransactionsList from './components/transaction-list';
 import Toolbar from './components/toolbar'
 
-import { selectAccount, addTransaction } from './redux/actions';
+import { selectAccount, addTransaction, loadAccounts } from './redux/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import _ from 'underscore';
 class AppRoot extends React.Component {
 
   //constructor(props) {
@@ -15,18 +16,41 @@ class AppRoot extends React.Component {
   //  this.state = 
   //}
 
+  componentDidMount () {
+    console.log("LOADING!!!");
+    this.props.loadAccounts();
+  }
+
+  haveAccounts (){
+    return _.keys(this.props.accounts).length > 0;
+  }
+
+  // render () {
+  //   return <div className="appRoot">{this.props.accounts ? _.keys(this.props.accounts).length : 0}</div>;
+  // }
+
   render () {
-    if (this.props.accounts.length > 0){
-      return <div className="appRoot">
-        <AccountsList     accounts={this.props.accounts} 
-                          onAccountSelect={this.props.selectAccount}/>
-        <TransactionsList account={this.props.accounts[this.props.currentAccount]} 
-                          onNewTransaction={this.props.addTransaction}/>
-        <Toolbar />
-      </div>;
+    var output;
+    if (this.haveAccounts()){
+      //console.log("SKIPPING");
+      return (
+        <div className="appRoot"><h1>aloha</h1>
+              <AccountsList accounts={this.props.accounts} 
+                                onAccountSelect={this.props.selectAccount}/>
+                                <TransactionsList account={this.props.accounts[this.props.currentAccount]} 
+                                onNewTransaction={this.props.addTransaction}/>
+                          </div>
+            );
+              //return {JSON.stringify(this.props)};
+              
+              
+              // <Toolbar />
+            
     }else{
-      return <div className="appRoot">No accounts to show</div>;
+      return (<div className="appRoot">No accounts to show</div>);
     }
+    // console.log("OUT",output);
+    // return ({output});
   }
 }
 
@@ -36,11 +60,13 @@ AppRoot.propTypes = {
 };
 
 function stateToProps(state){
+  //alert("STATE!");
+  console.log(state);
   return state;
 }
 
 function dispatchToProps(dispatch){
-  return bindActionCreators({ selectAccount, addTransaction }, dispatch);
+  return bindActionCreators({ selectAccount, addTransaction, loadAccounts }, dispatch);
 }
 
 export default connect(stateToProps,dispatchToProps)(AppRoot);

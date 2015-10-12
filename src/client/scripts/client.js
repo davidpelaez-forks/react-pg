@@ -1,3 +1,4 @@
+import 'babel-core/polyfill';
 import Debug from 'debug';
 import React from 'react';
 //import ReactDOM from 'react-dom';

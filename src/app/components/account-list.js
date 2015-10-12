@@ -1,31 +1,33 @@
 import React from 'react';
 import AccountItem from './stateless/account-item';
+import _ from 'underscore';
 
 class AccountList extends React.Component {
 
-  //componentDidMount () {
-    //alert(JSON.stringify(this.props));
-    //this.props.onAccountSelect();
-  //}
+  accountsArray (){
+    return _.map(this.props.accounts,(data,name)=>{
+      return _.extend({id: name}, data);
+    });
+  }
 
-  
+  itemNodes (){
+    return this.accountsArray().map( item => {
+      return <AccountItem account={item} key={item.name} onClick={this.props.onAccountSelect}/>;
+    });
+  }
 
   render () {
-    return <div className="accounts-list">
-      <h2>{this.props.title} Accounts</h2>
-      
-      <ul>
-        {this.props.accounts.map((item) => {
-            return <AccountItem account={item} key={item.name} onClick={this.props.onAccountSelect}/>;
-          })
-        }
-      </ul>
-    </div>;
+    window.React = React;
+    return (<div className="accounts-list">
+      <h2>Accounts</h2>
+      {this.itemNodes()}
+    </div>);
   }
 }
 
 AccountList.propTypes = {
-  accounts: React.PropTypes.array.isRequired,
+  accounts: React.PropTypes.object.isRequired,
+  onAccountSelect: React.PropTypes.func.isRequired
 };
 
 export default AccountList;

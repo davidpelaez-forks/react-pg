@@ -1,14 +1,10 @@
-import * as cnt from './constants'
+import { createAction } from 'redux-actions';
+import * as cnt from './constants';
+import * as API from './api';
 
-export function selectAccount(accountName){
-  alert(`selection ${accountName}`);
-  return {type: cnt.selectAccount, accountName: accountName};
-}
-
-export function addTransaction(transaction, accountName){
-  alert(`Adding transaction: ${JSON.stringify(transaction)}`);
-  return {type: cnt.addTransaction, transaction: transaction, accountName: accountName};
-}
+export let loadAccounts = createAction(cnt.loadAccounts, API.loadAccounts);
+export let selectAccount = createAction(cnt.selectAccount);
+export let addTransaction = createAction(cnt.addTransaction);
 
 
   // setCurrentAccount (account) {

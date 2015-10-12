@@ -22,6 +22,10 @@ module.exports = {
       { 
         test: require.resolve("../src/app/store"), 
         loaders: ["expose?store","babel-loader" ]
+      },
+      { 
+        test: require.resolve("underscore"), 
+        loaders: ["expose?_" ]
       }
       // ,
       // { 
